@@ -2,11 +2,9 @@ from flask import Flask, render_template, request, flash, redirect, url_for, jso
 import pickle
 import pandas as pd
 import numpy as np
-import MySQLdb
 import requests
 import dash
 from dash import dcc, html
-from dash.dependencies import Input, Output
 import plotly.express as px
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
@@ -15,19 +13,6 @@ from wtforms.validators import DataRequired
 # Initialize Flask app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 's3cr3t_k3y'
-
-# MySQL configurations
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'contact'
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-
-# Initialize MySQL connection
-mysql = MySQLdb.connect(host=app.config['MYSQL_HOST'],
-                        user=app.config['MYSQL_USER'],
-                        password=app.config['MYSQL_PASSWORD'],
-                        db=app.config['MYSQL_DB'])
 
 # Load the trained model and preprocessor
 model = pickle.load(open('flood_model.pkl', 'rb'))
@@ -56,13 +41,6 @@ def home():
                 'children': request.form.get('children', ''),
                 'message': request.form['message']
             }
-            cur = mysql.cursor()
-            cur.execute(
-                "INSERT INTO rescue (name, contact, datetime, destination, pincode, old_aged, mid_aged, children, message) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                tuple(form_data.values())
-            )
-            mysql.commit()
-            cur.close()
             success_message = "Form submitted successfully!"
         except Exception as e:
             error_message = f"An error occurred: {str(e)}"
@@ -82,10 +60,6 @@ def contact():
             'subject': request.form['subject'],
             'message': request.form['message']
         }
-        cursor = mysql.cursor()
-        cursor.execute("INSERT INTO contacts (name, email, subject, message) VALUES (%s, %s, %s, %s)", tuple(form_data.values()))
-        mysql.commit()
-        cursor.close()
         flash(f'Thank you, {form_data["name"]}! Your message has been sent successfully.', 'success')
         return redirect(url_for('contact'))
     
@@ -124,16 +98,6 @@ def predict():
             final_input = preprocessor.transform(df_input)
             prediction = model.predict(final_input)
             output = round(prediction[0] * 100, 2)
-
-            cursor = mysql.cursor()
-            cursor.execute("""
-                INSERT INTO flood_predictions (Year, Flood_Area, MonsoonIntensity, Deforestation, ClimateChange, 
-                                               Siltation, AgriculturalPractices, DrainageSystems, CoastalVulnerability, 
-                                               Landslides, PopulationScore, InadequatePlanning, Latitude, Longitude, Prediction) 
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """, (*input_data.values(), output))
-            mysql.commit()
-            cursor.close()
 
             return render_template('predict.html', current_page='predict', 
                                    prediction_text=f'Predicted Flood Probability for year {input_data["Year"]}: {output}%')
