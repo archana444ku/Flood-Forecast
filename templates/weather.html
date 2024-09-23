@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather for {{ weather.city }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_weather.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather for {{ weather.city }}</h1>
+        <div class="weather">
+            <img src="http://openweathermap.org/img/wn/{{ weather.icon }}.png" alt="Weather Icon">
+            <p class="temperature">{{ weather.temperature }}°{{ 'C' if weather.temperature_unit == 'metric' else 'F' }}</p>
+            <p>{{ weather.description }}</p>
+            <p>Humidity: {{ weather.humidity }}%</p>
+            <p>Wind Speed: {{ weather.wind_speed }} m/s</p>
+            <!-- Added Latitude and Longitude -->
+            <p>Latitude: {{ weather.latitude }}</p>
+            <p>Longitude: {{ weather.longitude }}</p>
+        </div>
+        <p><a href="/weather_index">Back to Search</a></p>
+        <button type="button" class="btn btn-link" onclick="window.location.href='/'">Home</button>
+
+    </div>
+</body>
+</html>

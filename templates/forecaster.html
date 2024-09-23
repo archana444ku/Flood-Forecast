@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecaster</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: url('/static/img/pexels-brett-sayles-1431822.jpg') center/cover no-repeat, rgba(22, 107, 181, 0.2);
+            background-blend-mode: darken;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #333333;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        h2 {
+    margin-bottom: 15px; /* Reduced margin */
+    color: #007bff; /* Blue color for the heading */
+    font-size: 1.5rem; /* Smaller heading size */
+    text-align: center; /* Center align the text */
+}
+
+
+        .container {
+    background-color: #ffffff; /* White background for the form container */
+    padding: 20px; /* Reduced padding */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px; /* Set max-width for medium form size */
+    width: 100%;
+}
+
+.form-control {
+    border-radius: 5px;
+    font-size: 0.875rem; /* Smaller font size for inputs */
+    padding: 8px; /* Reduced padding inside input fields */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Blue color for the button */
+    border-color: #007bff;
+    font-size: 0.875rem; /* Smaller font size for the button */
+    padding: 8px 15px; /* Reduced padding for button */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+.button-wrapper {
+    text-align: center; /* Center align the button within the wrapper */
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Weather Forecaster</h2>
+        <form action="/forecaster" method="post">
+
+            <div class="form-group">
+                <label for="Year">Year:</label>
+                <input type="text" class="form-control" id="Year" name="Year" list="year-list" required>
+            </div>
+
+            <div class="form-group">
+                <label for="name-input">Name:</label>
+                <input type="text" class="form-control" id="name-input" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="Flood_Area">Flood Area:</label>
+                <select class="form-control" id="Flood_Area" name="Flood_Area" required>
+                    <option value="">Select a flood area</option>
+                    <option value="August Kranti Maidan">August Kranti Maidan</option>
+                    <option value="Dadar">Dadar</option>
+                    <option value="Prabhadevi">Prabhadevi</option>
+                    <option value="Sewree">Sewree</option>
+                    <option value="Breach Candy">Breach Candy</option>
+                    <option value="Navi Mumbai">Navi Mumbai</option>
+                    <option value="Tardeo">Tardeo</option>
+                    <option value="Sion East">Sion East</option>
+                    <option value="Marine Lines">Marine Lines</option>
+                    <option value="Kalbadevi">Kalbadevi</option>
+                    <option value="Mahalaxmi">Mahalaxmi</option>
+                    <option value="Parel">Parel</option>
+                    <option value="Mankhurd">Mankhurd</option>
+                    <option value="Vakola">Vakola</option>
+                    <option value="Lokhandwala">Lokhandwala</option>
+                    <option value="Colaba">Colaba</option>
+                    <option value="Grant Road">Grant Road</option>
+                    <option value="Charkop">Charkop</option>
+                    <option value="Lower Parel">Lower Parel</option>
+                    <option value="Govandi">Govandi</option>
+                    <option value="Matunga">Matunga</option>
+                    <option value="Kalyan">Kalyan</option>
+                    <option value="Vikhroli">Vikhroli</option>
+                    <option value="Sandhurst Road">Sandhurst Road</option>
+                    <option value="Borivali">Borivali</option>
+                    <option value="Mantralaya">Mantralaya</option>
+                    <option value="Ghatkopar">Ghatkopar</option>
+                    <option value="Vikhroli West">Vikhroli West</option>
+                    <option value="Vashi">Vashi</option>
+                    <option value="Fort">Fort</option>
+                    <option value="Khopoli">Khopoli</option>
+                    <option value="Sewri">Sewri</option>
+                    <option value="Vile Parle East">Vile Parle East</option>
+                    <option value="Powai">Powai</option>
+                    <option value="Dahisar">Dahisar</option>
+                    <option value="Gansoli">Gansoli</option>
+                    <option value="Versova">Versova</option>
+                    <option value="Nepean Sea Road">Nepean Sea Road</option>
+                    <option value="Dharavi">Dharavi</option>
+                    <option value="Chembur">Chembur</option>
+                    <option value="Trombay">Trombay</option>
+                    <option value="Kurla">Kurla</option>
+                    <option value="Marol">Marol</option>
+                    <option value="Churchgate">Churchgate</option>
+                    <option value="Cuffe Parade">Cuffe Parade</option>
+                    <option value="Walkeshwar">Walkeshwar</option>
+                    <option value="Gorgaon">Gorgaon</option>
+                    <option value="Jogeshwari">Jogeshwari</option>
+                    <option value="Charni Road">Charni Road</option>
+                    <option value="Bhuleshwar">Bhuleshwar</option>
+                    <option value="Andheri">Andheri</option>
+                    <option value="Worli">Worli</option>
+                    <option value="Worli Naka">Worli Naka</option>
+                    <option value="Kandivali">Kandivali</option>
+                    <option value="Airoli">Airoli</option>
+                    <option value="Antop Hill">Antop Hill</option>
+                    <option value="Nagpada">Nagpada</option>
+                    <option value="Kanjurmarg">Kanjurmarg</option>
+                    <option value="Mumbai Central">Mumbai Central</option>
+                    <option value="Khar">Khar</option>
+                    <option value="Malad">Malad</option>
+                    <option value="Goregaon">Goregaon</option>
+                    <option value="Mazagaon">Mazagaon</option>
+                    <option value="Sion">Sion</option>
+                    <option value="Thane">Thane</option>
+                    <option value="Mulund West">Mulund West</option>
+                    <option value="Mahim">Mahim</option>
+                    <option value="Juhu">Juhu</option>
+                    <option value="Elphinstone">Elphinstone</option>
+                    <option value="Santacruz">Santacruz</option>
+                    <option value="Byculla">Byculla</option>
+                    <option value="Peddar Road">Peddar Road</option>
+                    <option value="King's Circle">King's Circle</option>
+                    <option value="Bhayandar">Bhayandar</option>
+                    <option value="Girgaon">Girgaon</option>
+                    <option value="Worli Sea Face">Worli Sea Face</option>
+                    <option value="Sakinaka">Sakinaka</option>
+                    <option value="Wadala">Wadala</option>
+                    <option value="Mazgaon">Mazgaon</option>
+                    <option value="Vile Parle West">Vile Parle West</option>
+                    <option value="Bandra">Bandra</option>
+                    <option value="Vile Parle">Vile Parle</option>
+                    <option value="Mulund">Mulund</option>
+                    <option value="Dongri">Dongri</option>
+                    <!-- Add flood area options here -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="latitude">Latitude:</label>
+                <input type="text" class="form-control" id="latitude" name="latitude" readonly>
+            </div>
+            <div class="form-group">
+                <label for="longitude">Longitude:</label>
+                <input type="text" class="form-control" id="longitude" name="longitude" readonly>
+            </div>
+            <div class="button-wrapper">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const areaSelect = document.getElementById('area-input');
+            const latitudeInput = document.getElementById('latitude');
+            const longitudeInput = document.getElementById('longitude');
+
+            areaSelect.addEventListener('change', function() {
+                const area = areaSelect.value.trim();
+
+                if (area) {
+                    fetch(`/get_lat_lon/${encodeURIComponent(area)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.latitude && data.longitude) {
+                                latitudeInput.value = data.latitude;
+                                longitudeInput.value = data.longitude;
+                            } else {
+                                latitudeInput.value = '';
+                                longitudeInput.value = '';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching latitude and longitude:', error);
+                        });
+                } else {
+                    latitudeInput.value = '';
+                    longitudeInput.value = '';
+                }
+            });
+        });
+
+
+       
+    </script>
+    <!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

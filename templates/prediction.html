@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #88d5df; /* Light blue color */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9); /* White background with transparency */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+        input, select {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            padding: 12px;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            text-align: center;
+            color: green;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Flood Predictor</h2>
+        <form method="POST" action="{{ url_for('predict') }}">
+            <label for="Year">Year</label>
+            <input type="number" id="Year" name="Year" required>
+
+            <label for="Flood_Area">Flood Area</label>
+            <input type="text" id="Flood_Area" name="Flood_Area" required>
+
+            <label for="MonsoonIntensity">Monsoon Intensity</label>
+            <input type="number" step="any" id="MonsoonIntensity" name="MonsoonIntensity" required>
+
+            <label for="Deforestation">Deforestation</label>
+            <input type="number" step="any" id="Deforestation" name="Deforestation" required>
+
+            <label for="ClimateChange">Climate Change</label>
+            <input type="number" step="any" id="ClimateChange" name="ClimateChange" required>
+
+            <label for="Siltation">Siltation</label>
+            <input type="number" step="any" id="Siltation" name="Siltation" required>
+
+            <label for="AgriculturalPractices">Agricultural Practices</label>
+            <input type="number" step="any" id="AgriculturalPractices" name="AgriculturalPractices" required>
+
+            <label for="DrainageSystems">Drainage Systems</label>
+            <input type="number" step="any" id="DrainageSystems" name="DrainageSystems" required>
+
+            <label for="CoastalVulnerability">Coastal Vulnerability</label>
+            <input type="number" step="any" id="CoastalVulnerability" name="CoastalVulnerability" required>
+
+            <label for="Landslides">Landslides</label>
+            <input type="number" step="any" id="Landslides" name="Landslides" required>
+
+            <label for="PopulationScore">Population Score</label>
+            <input type="number" step="any" id="PopulationScore" name="PopulationScore" required>
+
+            <label for="InadequatePlanning">Inadequate Planning</label>
+            <input type="number" step="any" id="InadequatePlanning" name="InadequatePlanning" required>
+
+            <label for="Latitude">Latitude</label>
+            <input type="number" step="any" id="Latitude" name="Latitude" required>
+
+            <label for="Longitude">Longitude</label>
+            <input type="number" step="any" id="Longitude" name="Longitude" required>
+
+            <input type="submit" value="Predict">
+        </form>
+        
+        {% if prediction_text %}
+            <div class="message">
+                <p>{{ prediction_text }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

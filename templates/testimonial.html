@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>FLOOD FORECASTER</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet"> 
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Include the navbar -->
+    {% include 'navbar.html' %}
+    <!-- Navbar & Hero End -->
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb">
+        <div class="container text-center py-5" style="max-width: 900px;">
+            <h3 class="text-white display-3 mb-4">Our Testimonials</h3>
+            <ol class="breadcrumb justify-content-center mb-0">
+                
+                <li class="breadcrumb-item"><a class="text-white" href="{{ url_for('testimonial') }}">Testimonial</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="{{ url_for('contact') }}">Contact</a></li>
+            </ol>    
+        </div>
+    </div>
+    <!-- Header End -->
+
+  <!-- Testimonial Start -->
+    <!-- Testimonial Start -->
+<div class="container-fluid testimonial py-5">
+    <div class="container py-5">
+        <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+            <h5 class="section-title px-3">Testimonials</h5>
+            <h1 class="mb-0">What Our Clients Say About Flood Forecasting in Mumbai</h1>
+        </div>
+        <div class="testimonial-carousel owl-carousel">
+            <div class="testimonial-item text-center rounded pb-4">
+                <div class="testimonial-comment bg-light rounded p-4">
+                    <p class="text-center mb-5">"The flood forecasting services in Mumbai were outstanding. We received accurate and timely warnings that allowed us to evacuate safely and avoid major damage. Their predictions were spot-on and truly made a difference for our community."</p>
+                </div>
+                <div class="testimonial-img p-1">
+                    <img src="{{ url_for('static', filename='img/testimonial-1.jpg') }}" class="img-fluid rounded-circle" alt="Rajesh Mehta">
+                </div>
+                <div style="margin-top: -35px;">
+                    <h5 class="mb-0">Rajesh Mehta</h5>
+                    <p class="mb-0">Mumbai, Maharashtra</p>
+                    <div class="d-flex justify-content-center">
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-item text-center rounded pb-4">
+                <div class="testimonial-comment bg-light rounded p-4">
+                    <p class="text-center mb-5">"The detailed flood forecasts we received for Mumbai were incredibly helpful. The accurate data allowed us to prepare in advance and protect our property and loved ones. We are grateful for the exceptional service."</p>
+                </div>
+                <div class="testimonial-img p-1">
+                    <img src="{{ url_for('static', filename='img/testimonial-2.jpg') }}" class="img-fluid rounded-circle" alt="Sneha Reddy">
+                </div>
+                <div style="margin-top: -35px;">
+                    <h5 class="mb-0">Sneha Reddy</h5>
+                    <p class="mb-0">Mumbai, Maharashtra</p>
+                    <div class="d-flex justify-content-center">
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-item text-center rounded pb-4">
+                <div class="testimonial-comment bg-light rounded p-4">
+                    <p class="text-center mb-5">"Thanks to the flood forecasting team, we were able to take necessary precautions and minimize the impact of the floods in Mumbai. Their accurate predictions and timely updates were crucial in managing the situation effectively."</p>
+                </div>
+                <div class="testimonial-img p-1">
+                    <img src="{{ url_for('static', filename='img/testimonial-3.jpg') }}" class="img-fluid rounded-circle" alt="Ravi Sharma">
+                </div>
+                <div style="margin-top: -35px;">
+                    <h5 class="mb-0">Ruhi Sharma</h5>
+                    <p class="mb-0">Mumbai, Maharashtra</p>
+                    <div class="d-flex justify-content-center">
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-item text-center rounded pb-4">
+                <div class="testimonial-comment bg-light rounded p-4">
+                    <p class="text-center mb-5">"The flood forecasting services in Mumbai were excellent. The team's timely warnings and accurate forecasts helped us manage the flood situation efficiently and safeguard our community."</p>
+                </div>
+                <div class="testimonial-img p-1">
+                    <img src="{{ url_for('static', filename='img/testimonial-4.jpg') }}" class="img-fluid rounded-circle" alt="Meera Desai">
+                </div>
+                <div style="margin-top: -35px;">
+                    <h5 class="mb-0">Meera Desai</h5>
+                    <p class="mb-0">Mumbai, Maharashtra</p>
+                    <div class="d-flex justify-content-center">
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+
+<!-- Include the footer -->
+{% include 'footer.html' %}
+</body>
+
+</html>

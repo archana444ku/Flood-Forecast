@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flood Prediction</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: url('/static/img/pexels-brett-sayles-1431822.jpg') center/cover no-repeat, rgba(22, 107, 181, 0.2);
+            background-blend-mode: darken;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #333333;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background-color: #abedc7; /* Navbar background color */
+            padding: 10px;
+        }
+        .navbar-brand {
+            color: #1b1c1c !important; /* Navbar brand color */
+            font-size: 24px; /* Font size for the brand text */
+            font-weight: bold; /* Make text bold */
+            margin: 0 auto; /* Center the brand */
+            display: flex; /* Use flexbox for centering */
+            align-items: center; /* Vertically center the brand text */
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 600px; /* Adjust the max-width to make the form box smaller */
+            padding: 20px;
+            background-color: rgba(237, 244, 194, 0.8); /* Light background with transparency */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-image: none; /* Removed background image */
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px; /* Adjusted margin to make it more compact */
+            color: #343a40;
+        }
+        .form-group {
+            margin-bottom: 15px; /* Adjusted margin to make it more compact */
+            display: flex;
+            align-items: center;
+        }
+        label {
+            font-weight: bold;
+            width: 150px; /* Adjust the width as needed */
+            margin-right: 10px;
+        }
+        .form-control {
+            width: 100%; /* Ensure all input fields take up full width */
+            max-width: 300px; /* Limit the maximum width of fields */
+        }
+        .btn-primary {
+            width: auto; /* Adjust button width */
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px; /* Adjust padding */
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            width: auto; /* Adjust button width */
+            background-color: #007bff; /* blue color */
+            border: none;
+            padding: 10px 20px; /* Adjust padding */
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        .prediction-text {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #f51e0e;
+            text-align: center;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between; /* Align buttons side by side */
+        }
+        .prediction-text {
+    font-size: 16px;
+
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+}
+
+
+
+    </style>
+    <script>
+        function validateInput(event) {
+            const input = event.target;
+            const value = parseFloat(input.value);
+            if (isNaN(value) || value < 1 || value > 10) {
+                document.getElementById(input.id + '-error').innerText = 'Please enter a number between 1 and 10.';
+                input.value = ''; // Clear the invalid input
+            } else {
+                document.getElementById(input.id + '-error').innerText = '';
+            }
+        }
+        function validateForm() {
+            let valid = true;
+            document.querySelectorAll('input[type="text"]').forEach(input => {
+                const value = parseFloat(input.value);
+                if (isNaN(value) || value < 1 || value > 10) {
+                    document.getElementById(input.id + '-error').innerText = 'Please enter a number between 1 and 10.';
+                    valid = false;
+                } else {
+                    document.getElementById(input.id + '-error').innerText = '';
+                }
+            });
+            return valid;
+        }
+    </script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Flood Predictor</a>
+    </nav>
+    <div class="container">
+        <h2><b>Flood Prediction Model</b></h2>
+        <form action="/predict" method="post" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="Year">Year:</label>
+                <input type="text" class="form-control" id="Year" name="Year" list="year-list" required>
+            </div>
+            <div class="form-group">
+                <label for="Flood_Area">Flood Area:</label>
+                <select class="form-control" id="Flood_Area" name="Flood_Area" required>
+                    <option value="">Select a flood area</option>
+                    <option value="August Kranti Maidan">August Kranti Maidan</option>
+                    <option value="Dadar">Dadar</option>
+                    <option value="Prabhadevi">Prabhadevi</option>
+                    <option value="Sewree">Sewree</option>
+                    <option value="Breach Candy">Breach Candy</option>
+                    <option value="Navi Mumbai">Navi Mumbai</option>
+                    <option value="Tardeo">Tardeo</option>
+                    <option value="Sion East">Sion East</option>
+                    <option value="Marine Lines">Marine Lines</option>
+                    <option value="Kalbadevi">Kalbadevi</option>
+                    <option value="Mahalaxmi">Mahalaxmi</option>
+                    <option value="Parel">Parel</option>
+                    <option value="Mankhurd">Mankhurd</option>
+                    <option value="Vakola">Vakola</option>
+                    <option value="Lokhandwala">Lokhandwala</option>
+                    <option value="Colaba">Colaba</option>
+                    <option value="Grant Road">Grant Road</option>
+                    <option value="Charkop">Charkop</option>
+                    <option value="Lower Parel">Lower Parel</option>
+                    <option value="Govandi">Govandi</option>
+                    <option value="Matunga">Matunga</option>
+                    <option value="Kalyan">Kalyan</option>
+                    <option value="Vikhroli">Vikhroli</option>
+                    <option value="Sandhurst Road">Sandhurst Road</option>
+                    <option value="Borivali">Borivali</option>
+                    <option value="Mantralaya">Mantralaya</option>
+                    <option value="Ghatkopar">Ghatkopar</option>
+                    <option value="Vikhroli West">Vikhroli West</option>
+                    <option value="Vashi">Vashi</option>
+                    <option value="Fort">Fort</option>
+                    <option value="Khopoli">Khopoli</option>
+                    <option value="Sewri">Sewri</option>
+                    <option value="Vile Parle East">Vile Parle East</option>
+                    <option value="Powai">Powai</option>
+                    <option value="Dahisar">Dahisar</option>
+                    <option value="Gansoli">Gansoli</option>
+                    <option value="Versova">Versova</option>
+                    <option value="Nepean Sea Road">Nepean Sea Road</option>
+                    <option value="Dharavi">Dharavi</option>
+                    <option value="Chembur">Chembur</option>
+                    <option value="Trombay">Trombay</option>
+                    <option value="Kurla">Kurla</option>
+                    <option value="Marol">Marol</option>
+                    <option value="Churchgate">Churchgate</option>
+                    <option value="Cuffe Parade">Cuffe Parade</option>
+                    <option value="Walkeshwar">Walkeshwar</option>
+                    <option value="Gorgaon">Gorgaon</option>
+                    <option value="Jogeshwari">Jogeshwari</option>
+                    <option value="Charni Road">Charni Road</option>
+                    <option value="Bhuleshwar">Bhuleshwar</option>
+                    <option value="Andheri">Andheri</option>
+                    <option value="Worli">Worli</option>
+                    <option value="Worli Naka">Worli Naka</option>
+                    <option value="Kandivali">Kandivali</option>
+                    <option value="Airoli">Airoli</option>
+                    <option value="Antop Hill">Antop Hill</option>
+                    <option value="Nagpada">Nagpada</option>
+                    <option value="Kanjurmarg">Kanjurmarg</option>
+                    <option value="Mumbai Central">Mumbai Central</option>
+                    <option value="Khar">Khar</option>
+                    <option value="Malad">Malad</option>
+                    <option value="Goregaon">Goregaon</option>
+                    <option value="Mazagaon">Mazagaon</option>
+                    <option value="Sion">Sion</option>
+                    <option value="Thane">Thane</option>
+                    <option value="Mulund West">Mulund West</option>
+                    <option value="Mahim">Mahim</option>
+                    <option value="Juhu">Juhu</option>
+                    <option value="Elphinstone">Elphinstone</option>
+                    <option value="Santacruz">Santacruz</option>
+                    <option value="Byculla">Byculla</option>
+                    <option value="Peddar Road">Peddar Road</option>
+                    <option value="King's Circle">King's Circle</option>
+                    <option value="Bhayandar">Bhayandar</option>
+                    <option value="Girgaon">Girgaon</option>
+                    <option value="Worli Sea Face">Worli Sea Face</option>
+                    <option value="Sakinaka">Sakinaka</option>
+                    <option value="Wadala">Wadala</option>
+                    <option value="Mazgaon">Mazgaon</option>
+                    <option value="Vile Parle West">Vile Parle West</option>
+                    <option value="Bandra">Bandra</option>
+                    <option value="Vile Parle">Vile Parle</option>
+                    <option value="Mulund">Mulund</option>
+                    <option value="Dongri">Dongri</option>
+                    <!-- Add flood area options here -->
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="Latitude">Latitude:</label>
+                <input type="text" class="form-control" id="Latitude" name="Latitude" list="latitude-list" oninput="validateInput(event)" required>
+                <datalist id="latitude-list">
+                    <option value="18.9200"></option>
+                    <option value="19.0760"></option>
+                    <option value="19.2183"></option>
+                    <option value="19.1044"></option>
+                    <option value="18.9454"></option>
+                </datalist>
+               
+            </div>
+            
+            <div class="form-group">
+                <label for="Longitude">Longitude:</label>
+                <input type="text" class="form-control" id="Longitude" name="Longitude" list="longitude-list" oninput="validateInput(event)" required>
+                <datalist id="longitude-list">
+                    <option value="72.8205"></option>
+                    <option value="72.8777"></option>
+                    <option value="72.9258"></option>
+                    <option value="72.8969"></option>
+                    <option value="72.8357"></option>
+                </datalist>
+                
+            </div>
+
+
+            <div class="form-group">
+                <label for="MonsoonIntensity">Monsoon Intensity:</label>
+                <input type="text" class="form-control" id="MonsoonIntensity" name="MonsoonIntensity" list="intensity-list" oninput="validateInput(event)" required>
+                <datalist id="intensity-list">
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                    <option value="6"></option>
+                    <option value="7"></option>
+                    <option value="8"></option>
+                    <option value="9"></option>
+                    <option value="10"></option>
+                </datalist>
+                <div id="MonsoonIntensity-error" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="Deforestation">Deforestation:</label>
+                <input type="text" class="form-control" id="Deforestation" name="Deforestation" list="deforestation-list" oninput="validateInput(event)" required>
+                <datalist id="deforestation-list">
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                    <option value="6"></option>
+                    <option value="7"></option>
+                    <option value="8"></option>
+                    <option value="9"></option>
+                    <option value="10"></option>
+                </datalist>
+                <div id="Deforestation-error" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="ClimateChange">Climate Change:</label>
+                <input type="text" class="form-control" id="ClimateChange" name="ClimateChange" list="climate-change-list" oninput="validateInput(event)" required>
+                <datalist id="climate-change-list">
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                    <option value="6"></option>
+                    <option value="7"></option>
+                    <option value="8"></option>
+                    <option value="9"></option>
+                    <option value="10"></option>
+                </datalist>
+                <div id="ClimateChange-error" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="Siltation">Siltation:</label>
+                <input type="text" class="form-control" id="Siltation" name="Siltation" list="siltation-list" oninput="validateInput(event)" required>
+                <datalist id="siltation-list">
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                    <option value="6"></option>
+                    <option value="7"></option>
+                    <option value="8"></option>
+                    <option value="9"></option>
+                    <option value="10"></option>
+                </datalist>
+                <div id="Siltation-error" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="AgriculturalPractices">Agricultural Practices:</label>
+                <input type="text" class="form-control" id="AgriculturalPractices" name="AgriculturalPractices" list="agricultural-practices-list" oninput="validateInput(event)" required>
+                <datalist id="agricultural-practices-list">
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                    <option value="6"></option>
+                    <option value="7"></option>
+                    <option value="8"></option>
+                    <option value="9"></option>
+                    <option value="10"></option>
+                </datalist>
+                <div id="AgriculturalPractices-error" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="DrainageSystems">Drainage Systems:</label>
+                <input type="text" class="form-control" id="DrainageSystems" name="DrainageSystems" list="drainage-systems-list" oninput="validateInput(event)" required>
+                <datalist id="drainage-systems-list">
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                    <option value="6"></option>
+                    <option value="7"></option>
+                    <option value="8"></option>
+                    <option value="9"></option>
+                    <option value="10"></option>
+                </datalist>
+                <div id="DrainageSystems-error" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="CoastalVulnerability">Coastal Vulnerability:</label>
+                <input type="text" class="form-control" id="CoastalVulnerability" name="CoastalVulnerability" list="coastal-vulnerability-list" oninput="validateInput(event)" required>
+                <datalist id="coastal-vulnerability-list">
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                    <option value="6"></option>
+                    <option value="7"></option>
+                    <option value="8"></option>
+                    <option value="9"></option>
+                    <option value="10"></option>
+                </datalist>
+                <div id="CoastalVulnerability-error" class="error-message"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="Landslides">Landslides:</label>
+                <input type="text" class="form-control" id="Landslides" name="Landslides" list="landslides-list" oninput="validateInput(event)" required>
+                <datalist id="landslides-list">
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                    <option value="6"></option>
+                    <option value="7"></option>
+                    <option value="8"></option>
+                    <option value="9"></option>
+                    <option value="10"></option>
+                </datalist>
+                <div id="Landslides-error" class="error-message"></div>
+            </div>
+            
+           
+            <div class="form-group">
+                <label for="PopulationScore">Population Score:</label>
+                <input type="text" class="form-control" id="PopulationScore" name="PopulationScore" list="population-score-list" oninput="validateInput(event)" required>
+                <datalist id="population-score-list">
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                    <option value="6"></option>
+                    <option value="7"></option>
+                    <option value="8"></option>
+                    <option value="9"></option>
+                    <option value="10"></option>
+                </datalist>
+                <div id="PopulationScore-error" class="error-message"></div>
+            </div>
+            
+            
+            
+            <div class="form-group">
+                <label for="InadequatePlanning">Inadequate Planning:</label>
+                <input type="text" class="form-control" id="InadequatePlanning" name="InadequatePlanning" list="inadequate-planning-list" oninput="validateInput(event)" required>
+                <datalist id="inadequate-planning-list">
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                    <option value="6"></option>
+                    <option value="7"></option>
+                    <option value="8"></option>
+                    <option value="9"></option>
+                    <option value="10"></option>
+                </datalist>
+                <div id="InadequatePlanning-error" class="error-message"></div>
+            </div>
+
+
+            
+            
+             <!-- Add the submit and reset buttons -->
+    <div class="button-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <!--a href="{{ url_for('forecaster') }}" class="btn btn-secondary" role="button">Go to Dashboard</a-->
+        <p>
+            <a href="/dashboard" class="btn btn-secondary" role="button">Go to Dashboard</a>
+        </p>
+    </div>
+    
+            
+            
+    </form>
+    <div class="prediction-text">
+        {{ prediction_text }}
+        <!-- Display prediction result here -->
+    </div>
+</div>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

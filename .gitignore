@@ -1,0 +1,4 @@
+# Dont upload one file, in this case saved_model.pkl, inside models folder
+models/flood_model.pkl
+# Dont upload an entire folder
+venv/
