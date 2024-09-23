@@ -39,7 +39,6 @@ Django
 dnspython
 email_validator
 emoji
-en-core-web-sm
 enum34
 executing
 Faker
