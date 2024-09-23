@@ -15,8 +15,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 's3cr3t_k3y'
 
 # Load the trained model and preprocessor
-model = pickle.load(open('flood_model.pkl', 'rb'))
-preprocessor = pickle.load(open('preprocessor.pkl', 'rb'))
+# model = pickle.load(open('flood_model.pkl', 'rb'))
+# preprocessor = pickle.load(open('preprocessor.pkl', 'rb'))
 
 # Weather API configurations
 weather_api_key = '3c195f88f2b5332c421ae8dd55ae467e'
