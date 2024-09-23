@@ -238,6 +238,4 @@ widgetsnbextension
 wordcloud
 wrapt
 WTForms
-
-# After installing the dependencies, install the SpaCy language model with:
-# python -m spacy download en_core_web_sm
+mysqlclient
