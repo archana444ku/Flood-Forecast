@@ -123,7 +123,7 @@ pillow==10.3.0
 platformdirs==4.2.1
 plotly==5.24.1
 prometheus_client==0.20.0
-prompt-toolkit==3.0.41  # Updated to a compatible version
+prompt-toolkit==3.0.41
 protobuf==4.25.4
 psutil==5.9.8
 pure-eval==0.2.2
@@ -135,8 +135,6 @@ Pygments==2.18.0
 pyparsing==3.1.2
 python-dateutil==2.9.0.post0
 python-json-logger==2.0.7
-# Removed potential problematic package
-# pytorch-ranger==0.1.1
 pytz==2024.1
 pywinpty==2.0.13
 PyYAML==6.0.1
@@ -180,10 +178,11 @@ threadpoolctl==3.5.0
 tinycss2==1.3.0
 toml==0.10.2
 toolz==0.12.1
-torch==2.3.1
-torch-optimizer==0.3.0
-torchmetrics==1.3.2
-torchvision==0.18.1
+# Removed potentially problematic packages
+# torch==2.3.1
+# torch-optimizer==0.3.0
+# torchmetrics==1.3.2
+# torchvision==0.18.1
 tornado==6.4
 tqdm==4.66.4
 traitlets==5.14.3
@@ -208,5 +207,5 @@ wrapt==1.16.0
 WTForms==3.1.2
 xgboost==2.1.0
 yarl==1.9.4
-zipp==3.19.2
+zipp==3.16.2
 gunicorn
