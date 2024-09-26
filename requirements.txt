@@ -136,7 +136,8 @@ pyparsing==3.1.2
 python-dateutil==2.9.0.post0
 python-json-logger==2.0.7
 pytz==2024.1
-pywinpty==2.0.13
+# Removed pywinpty as it may not be needed
+# pywinpty==2.0.13
 PyYAML==6.0.1
 pyzmq==26.0.3
 qtconsole==5.5.2
@@ -202,10 +203,7 @@ websockets==11.0.3
 Werkzeug==3.0.3
 wheel==0.43.0
 widgetsnbextension==4.0.10
-wordcloud==1.9.3
-wrapt==1.16.0
-WTForms==3.1.2
-xgboost==2.1.0
-yarl==1.9.4
-zipp==3.16.2
+wordcloud==1.8.2
+yarl==1.9.2
+zipp==3.15.0
 gunicorn
