@@ -123,7 +123,7 @@ pillow==10.3.0
 platformdirs==4.2.1
 plotly==5.24.1
 prometheus_client==0.20.0
-prompt-toolkit==3.0.36
+prompt-toolkit==3.0.41  # Updated to a compatible version
 protobuf==4.25.4
 psutil==5.9.8
 pure-eval==0.2.2
