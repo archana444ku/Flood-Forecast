@@ -135,7 +135,8 @@ Pygments==2.18.0
 pyparsing==3.1.2
 python-dateutil==2.9.0.post0
 python-json-logger==2.0.7
-pytorch-ranger==0.1.1
+# Removed potential problematic package
+# pytorch-ranger==0.1.1
 pytz==2024.1
 pywinpty==2.0.13
 PyYAML==6.0.1
@@ -209,3 +210,4 @@ xgboost==2.1.0
 yarl==1.9.4
 zipp==3.19.2
 gunicorn
+``
